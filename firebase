@@ -1,0 +1,48 @@
+// Імпорт необхідних функцій з SDK
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+// Ваша конфігурація Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyD-LbV2oF8ECG3D7j46LExc0W7SLaCxLCE",
+  authDomain: "novel-game-b6972.firebaseapp.com",
+  projectId: "novel-game-b6972",
+  storageBucket: "novel-game-b6972.firebasestorage.app",
+  messagingSenderId: "35263715319",
+  appId: "1:35263715319:web:55b842e1c52bfe8bd480f2",
+  measurementId: "G-TVM6ERF1E2"
+};
+
+// Ініціалізація Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// Ініціалізація сервісу аутентифікації
+const auth = getAuth(app);
+
+// 1. Функція реєстрації нового користувача (Sign Up)
+export const registerUser = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log("Успішна реєстрація! Користувач:", user.email);
+    return user;
+  } catch (error) {
+    console.error("Помилка реєстрації:", error.code, error.message);
+    throw error;
+  }
+};
+
+// 2. Функція входу існуючого користувача (Log In)
+export const loginUser = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log("Успішний вхід! Користувач:", user.email);
+    return user;
+  } catch (error) {
+    console.error("Помилка входу:", error.code, error.message);
+    throw error;
+  }
+};
