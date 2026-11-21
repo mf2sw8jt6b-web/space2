@@ -1,0 +1,9 @@
+// Приклад виклику під час натискання кнопки "Увійти"
+document.getElementById('login-btn').addEventListener('click', () => {
+  const email = document.getElementById('email-input').value;
+  const password = document.getElementById('password-input').value;
+  
+  loginUser(email, password)
+    .then(() => alert("Ви успішно увійшли!"))
+    .catch((err) => alert("Помилка: " + err.message));
+});
